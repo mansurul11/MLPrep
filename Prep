@@ -1,1 +1,60 @@
-
+Logistic Regression:
+1. linear model (output is the probability of an instance being in a class)
+2. sigmoid(wTx+b)=y
+3. log loss: sum over all training points -y*log(y) - (1-y)*log(1-y) [cross entropy as well]
+4. regularization through: 
+  - l2 (ridge) square sum over W's 
+    - has derivative and convex
+    - set W's to small values
+  - l1 (lasso) sum over W's
+    - no derivative, concave
+    - set W's to zero indicates selection of feature
+5. Advantages:
+    - computationally faster
+    - It makes no assumptions about distributions of classes in feature space.
+    - easy to extend for multi class setting
+    - interpretable
+6. Disadvantages:
+    - if not enough data but large number feature cause overfitting
+    - assumption of linearity between features and label is not always true
+    - always generate linear boundery
+    - Cannot handle multi-colinearity
+SVM:
+1. Support vector machines that aims to separate classes by maximum width margin.
+2. Output +1 and -1 as prediction
+3. formulated as an optimization problem to minimze 1/|w|^2 here w is the distance between wTx+b=0 and wTx+b=+1 and wTx+b=-1
+4. The data points on the line wTx+b=+1 and wTx+b=-1 are called support vectors
+5. To handle nonlinera data, kernel is applicable to the data points to transform the to higher dimension where the data points become linearly separable.
+6. polynomial, radial-basis are the kernel and RBF is the most popular.
+7. To train, we can use hinge loss (max (0, 1-y*y^) y^ = wTx+b) - loss if 0 if y and y^ has the same sign (+1,+1) OR (-1,-1) and 2 is they are opposite)
+8. final loss function is : sum over all data points:  max (0, 1-y*y^) + C*epsilon, here epsilon is the noise where prediction is +1 is wTx+b >= 1-epsilon and -1 if
+wTx+b =< 1-epsilon, C is regularion param.
+9. To use kernel, we can replace x with f(x)  and have wTf(x)+b here f is kernel function.
+10. SGD can be using to train the model.
+11. To regulate RBF(1/2sigma^2 * (x-x')), we need to tune sigma^2 
+12. Advantages:
+  -
+Decision Tree:
+Random Forest
+Gradient Boost:
+Evaluation:
+Overfitting-underfitting
+Regularization
+Loss functions
+RNN
+LSTM GRU
+Gradient explosion
+Gradient vanishes
+Batch normalization
+Mini batch gradient descent
+Momentum
+RMSPorp
+Adam
+Attention
+Activation functions
+Loss functions
+Two tower
+Deep and wide
+Pooling (average, min, max)
+Alternative Least Square
+MF R = UTV
