@@ -32,10 +32,48 @@ wTx+b =< 1-epsilon, C is regularion param.
 9. To use kernel, we can replace x with f(x)  and have wTf(x)+b here f is kernel function.
 10. SGD can be using to train the model.
 11. To regulate RBF(1/2sigma^2 * (x-x')), we need to tune sigma^2 
-12. Advantages:
-  -
+12. Another way to formulate is the take a dual of original optimization formulation after using langrange to transform constraint. (dont know much detail)
+13. Advantages:
+  - Can handle non-linear data through kernel trick
+  - handle multi-co-linear data points
+14. Disadvantages:
+  - computationally expensive for large amount of data
+  - can overfit is data is less than features.
+  -  prediction is less interpretable as prediction is not interms of probabilty but one can take the score from linear model and convert into probability
 Decision Tree:
-Random Forest
+1. Rule based system where given a feature and its values based on equality/inquality rules the algorithm splits the dataset. one can think is splitting as a creation of
+two nodes (childred) in a tree for the parent node representative of the feature in question.
+2. The leaf not indicates class or numeric number dependending on classifiction or regression problem.
+3. Main challenge is to know at each stage which feature to be used for splitting.
+4. Intuition is to find the most discreminative feature as each stage to split the dataset and one way to find that is through information gain measure. Information 
+gain is a measure of entropy where higher entropy indicates more ambiguity in the class distribution less discrinative and lower entry low ambiguity higher discrimination
+5. Information gain of feature a = entropy(S)-entropy(S|a), we want a with maximum information gain from the current state of the dataset to the splitting version.
+7. tree depth is parameter used to regularize the tree
+7. Advantages:
+  - very interpretable, easy to explain a prediction.
+  - easily adapt categorical and numerical feature.
+  - low effort on data preprocessing.
+8. DisAdvantages:
+  - can easily overfit. Backward node prunning may help.
+  - changes in training data cause entire tree recreation.
+  - 
+Random Forest:
+1. This is collection of small depth decision trees.
+2. Random forest address the overfitting issue of a single deep decision tree.
+3. Random forest is an ensemble model trained through bagging.
+4. At each step it samples K instances with replacement and build a decision tree.
+5. One additional step it does is to also sample a set of features that it uses to build the trees. This help not make the tree correlated.
+6. Random forest kind of overfits each tree but different feature set ensures overfitting happend in different direction and aggration of all these tree cancel out each
+others overfitting.
+7. For classification, it takes majority voting and average for regression.
+8. number of estimators/trees and depth of each tree params can be use to regularize.
+Advantages:
+ - does not overfit
+ - interpretable
+ - handle missing data
+Disadvantages:
+  - longer training time
+  
 Gradient Boost:
 Evaluation:
 Overfitting-underfitting
