@@ -140,7 +140,14 @@ Underfitting:
   - increase model's complexity as adding more data will not help for degrade the situation.
   - add more features.
   
-Regularization
+Regularization:
+1. Regularization is the tool to address overfitting of the model.
+2. There are several ways to enforce regularization and most trivial way is to add penalty term on the model's parameter in the cost function. There are several kinds 
+of these penalty term, Ridge (l2) lasso (l1) and elastic (l1 and l2)
+3. for tree models, by tuning depth of the tree, number of trees in the forest one can regularize.
+4. Data augmentation also has regularization effects.
+5. In deep learning, along with l2 regularion, dropout (randomly inactive nodes in the hidden layer), batch normalization (normalizing hidden layer output of 
+layer i by 0 mean 1 std before passing to layer i+1) has regularization effect.
 Loss functions
 RNN
 LSTM GRU
