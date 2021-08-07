@@ -81,18 +81,46 @@ Gradient Boosted model:
 4. given y = f(x) is the model, at stage 0 we will train a basic weak learner (always output average of the class label or a very shallow tree) and get y^ (prediction)
 now, record error y-y^ and replace target to y-y^ and try to fit another model f on (y-y^), Keep on doing this until there is no change is the error or number of iterations
 expires.
-5.Advantages:
+5. gradient boosted model can be used for ranking, where given a ranking function f, prediction pairwise prediction y^(i>j) can be derived from a sigmoid 1/1+e(f(xi)-f(xj))
+6. we can logloss -ylog(y^)-(1-y)log(1-y^) as cost function. (RankNet)
+7. LambdaRank include change (delta) in NDCG when i and j are swapped in the gradient computation of the above log loss cost function.
+8.Advantages:
   - Lots of flexibility - can optimize on different loss functions and provides several hyper parameter tuning options that make the function fit very flexible.
   - No data pre-processing required - often works great with categorical and numerical values as is.
   - Handles missing data - imputation not required.
   
-6. Disadvantages:
+9. Disadvantages:
   - Gradient Boosting Models will continue improving to minimize all errors. This can overemphasize outliers and cause overfitting.
   - Computationally expensive - often require many trees (>1000) which can be time and memory exhaustive.
   - The high flexibility results in many parameters that interact and influence heavily the behavior of the approach (number of iterations, tree depth, regularization parameters, etc.). This requires a large grid search during tuning.
   - Less interpretative in nature, although this is easily addressed with various tools.
   
 Evaluation:
+Classification:
+  - Precision: ratio of correct out of all predicted
+  - Recall: ratio of correct prediction out of all correct in the set
+  - f1: hermonic mean between precision and recall
+  - AUC: area under ROC curve measure for different threshold and plotted TPR and FPR.
+    - when threshold is zero, both TPR and FPR is zero, indicating bottom left corner
+    - when threshold is 1, both TPR and FPR is 1, indicating top right corner
+  -PR curve - helps to determine what threshold to use for nominating a prediction as positive.
+Regression:
+  - R-Square: measure how good the prediction is compared to mean of the target variable.
+  - Root mean square error: root of the mean square error (stable than MSE as MSE can explore in case of an outlire.)
+Ranking:
+  Mean Reciprocal rank: measure what is the rank of first relevant element. measured by mean(1/rank of first relevant element for each data query)
+  Precision@K: what fraction of items withing top k is relevant. 
+    - does not consider order among the items in the list
+  Mean Precision: computed precision @1..K and average.
+  Average Mean Precision: Average of mean precision accross queries/users
+  CG: cumulative sum of relevance score for each element in the rank list
+    - does not penalize of showing not relevant item on top position.
+  DCG: 2^(rel_i)/log(i+1) for all ith item in the rank list.
+    - hard to interprete and not comparable between users/queries.
+  IDCG: DCG for idean rannking
+  NDCG: DCG/IDCG: between 0 to 1
+    - has problem handling when we dont have complete set of relevant score for the entire ranked list, challeng is how to fill those slots.
+    -
 Overfitting-underfitting
 Regularization
 Loss functions
