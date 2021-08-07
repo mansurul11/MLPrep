@@ -121,7 +121,25 @@ Ranking:
   NDCG: DCG/IDCG: between 0 to 1
     - has problem handling when we dont have complete set of relevant score for the entire ranked list, challeng is how to fill those slots.
     -
-Overfitting-underfitting
+Overfitting:
+
+1. Detection of overfitting is possible from learning curve, that plots training error and validation/testing error.
+2. if training error is low and testing error is high it overfitting.
+3. overfitting can also reffer to the high variance low bias case.
+4. To resolve overfitting one can:
+  - regularize the model by adding penalty term in the cost function.
+  - Add more data
+  - reduce feature
+  - lower down model's complexity.
+  
+Underfitting:
+1. Detection of underfitting is possible from learning curve, that plots training error and validation/testing error.
+2. if training error is high and testing/validation error is high then we can say model is suffering from underfitting.
+3. underfitting is high bias low variation situation
+4. to resolve underfitting one can:
+  - increase model's complexity as adding more data will not help for degrade the situation.
+  - add more features.
+  
 Regularization
 Loss functions
 RNN
