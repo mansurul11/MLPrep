@@ -215,11 +215,69 @@ RMSPorp
 Adam
 1. mix of momentum and RMSProp
 
-Attention
-Activation functions
-Loss functions
-Two tower
-Deep and wide
-Pooling (average, min, max)
-Alternative Least Square
-MF R = UTV
+Attention:
+1. In RNN, to maintain longer dependency a context vector c is concatenated with the decoder hidden layer input at time t. 
+2. This context vector c is generated using the attention model that holds the information of how much importance/weight should be given at the input hidden layer h_t while generated outout y_t in the decoder.
+3. these weights are learned through a feedforward network using encoder and decoder's hidden using at time t-1. 
+4. Weights are the softmax normalized of scores outout by the attention network also called alighment score.
+5. Such attention is called global attention. from decoder to encoder.
+6. Such attention can be additive (how encoder and decoder from attention network aggragate to product alignment score) (Bahdanau Attention) and multiplicative/dot/concatenated (luong attention)
+
+Activation functions:
+1. Sigmoid: sigmoid function map a real valued number between 0 and 1.
+  - can cause neural network to get stuck during training due if the sigmoid repetably product number close to zero which is turn cause very slow movement in SGD
+2. tanh: range -1 and 1
+3. Relu: max (0, x)
+  - all negative values become zero causing model not to fit the data properly
+4. leaky relu: max(ax, x) where a==0.01
+  - able to handle negative value
+  
+Two tower:
+1. Siamese network where each tower is exactly the same i.e. both can be CNN followed by a fc.
+2. combined with some similarity metric i.e. cosine simillarity, eucledian/manhattan distance.
+3. Loss used either contrastive or triplet.
+4. heavyly used in 
+  - semantic search wher tower one is for query and tower two is for item.
+  - recommendation, toweer one is for user and tower two is for item.
+5. after training learned item embedding is indexed using optimized index solution i.e. faiise
+6. during inference, query/user two generates the embedding and approximate KNN provides k most relevant items for search or recommendations.
+7. in both the tower, other side information can be included.
+
+Deep and wide:
+1. In deep and wide network, deep part encode the semantice information either for query or user and wide part can handle tradition features and cross features. i.e. where item is from brand b and category c.
+2. deep part can be any NN architecture and wide part is an MLP, finally these two concatenated and then through FC to the output/prediction node. 
+3. cross entropy loss
+
+Transformer:
+1. Transformer is a attention network that can allow self attention i.e. which processing node at time t , it can focus/have weights on previous t-1 nodes.
+2. Transformer has three concept 1) query 2) key and 3)value.
+3. query is node at time stamp t
+4. key are the hidden layers, from h0 to h_t-1.
+5. once there is a key to the query, outout associated to the hidden unit to provided.
+6. Transformer allow to have multiple attention head 
+7. this attention is called dot-product attention as final z = softmax(queryDOTkey)value
+
+BERT:
+1. Bidirectional encoder trasnformer model.
+2. positional encoding allow parallel processing of input states.
+3. during training solve masked language model and next sentence prediction problem.
+4. pretrain on text (unsuper vised) to generate language model.
+5. can be fine tuned for a specific task
+
+Subword Tokenization:
+1. byte pair encoding: based on frequency, starts with character and every step merge most frequent n-grams. i.e. stage 2 will merge most frequence bigrams and stage 3 3-grams and so on, until target size of vocab.
+2. word piece: same as byte pair but use likelihood not frequency.
+
+Recommender system:
+1. user-centric: model user's using a set of feature/parameters and solve a regression problem to predict rating of an item that has these features as well.
+2. item-item centric: model items using a set of feature/parameters and solve a regression problem to predict rating of an item that has these features as well.
+3. collaborative filtering: recommend one user from the understanding of another user that are similar to the input user.
+4. Alternative least squares combines 1 and 2 and solve togather.
+5. Matrix factorization if user-rating matrix.
+6. Factor R (rating matrix) to U and V where U(user X k features) and V (items X k features)
+7. dot product of one row in user matrix and one column of item matrix is the rating.
+8. training through SGD using squared loss (R- UV^t)^2 while randomly initialize U and V
+
+AB Test:
+1. unpaired t test.
+
