@@ -166,15 +166,55 @@ Loss functions:
    - An important decision of a training with Triplet Ranking Loss is negatives selection or triplet mining. 
        - First strategies used offline triplet mining, which means that triplets are defined at the beginning of the training,
        - online triplet mining, meaning that triplets are defined for every batch during the training
-RNN
-LSTM GRU
-Gradient explosion
-Gradient vanishes
-Batch normalization
-Mini batch gradient descent
-Momentum
+Neutral Net:
+1. Feed forward net: linera conbination of many linear conbination.
+2. Forward propagation from layer 0 to output layer 
+3. backprod: from loss using chain rule for partial derivation update parameters in each layer using gradient descent.
+4. Non-linearity: to handle non-linear data, activation functions are introduced after each linear (wTx+b) computations on each hidden node.
+
+Recurrent Neural Net:
+1. RNN is a spacial kind of NN that handle cyclic operation meaning, output of a hiddne node at time stamp t-1 is using as an input in node at time t. Such recusive nature coined the name recurrent.
+2. Such NN are perfect to model sequences.
+3. RNN's can be bidirectional and multilayer.
+4. h^t = g(wTx^t+ wTh^t-1 + b^t-1) here g is the activation functions and y = g(wTh^t+b) is the prediction using hidden layer h at time t.
+5. backproagation in RNN is called back prod through time.
+Advantages:
+   - model sequence
+   - shared parameter 
+   - model size does not increase with larger sequence.
+Disadvantages:
+   - slow to train.
+   - unable to capture sequential relation long time back.
+   - Gradient can become very small as well as large during back prop
+   
+Gradient explosion:
+1. In RNN, since parameters are shared and due to gradient multiplication, if gradient is larger and 1 then over time gradiant can explore and SGD start ossilationg due to large updates of the model.
+  - clipping gradient is one way to handling explosive gradient.
+Gradient vanishes:
+1. This is the opposite situation of explosion and this cause SGD to very slow.
+  - gated RNNs i.e LSTM, GRU developed to addess this situation where one can control whether to pass information from time t-1 to t. this cause braking the multiplication cycle.
+  - changing activation functions is another way to handling this i.e sigmoid and tanh may cause gradiant vanish due to the output range of this function. Relu max(0,x) help in this case.
+  
+Batch normalization:
+1. Batch normalization is a technique to handle data covariates shift from layer to layer.
+2. Batch normalization does nomalization of hidden layer at t-1 using mean-0 std-1 before passing to layer t. 
+3. This will help to ensure, hidden layers are receiving inputs that are following a same distribution (mean-0, std-1). 
+4. Batch normalization cause faster convergence.
+5. For inference time batch normalization, we can maintain exponential moving average of mean and std's of each batch and provide that during inference time.
+
+Mini batch gradient descent:
+1. version of gradient descent algorithm that does updates per batch 
+2. Faster convergence.
+
+Momentum:
+1. Momentum keep tracks of exponetially moving average of gradients of each steps. vdW^t = beta*vdW+ (1-beta)dW and W = W- learning_rate*vdW.
+   - helped to get out of local minima.
+   - reduce ossication but maintain horizental movement.
 RMSPorp
+1. Version of Momentum having squared version of vdW
 Adam
+1. mix of momentum and RMSProp
+
 Attention
 Activation functions
 Loss functions
