@@ -148,7 +148,24 @@ of these penalty term, Ridge (l2) lasso (l1) and elastic (l1 and l2)
 4. Data augmentation also has regularization effects.
 5. In deep learning, along with l2 regularion, dropout (randomly inactive nodes in the hidden layer), batch normalization (normalizing hidden layer output of 
 layer i by 0 mean 1 std before passing to layer i+1) has regularization effect.
-Loss functions
+
+Loss functions:
+1. log loss: -y*log(y^)-(1-y)*log(1-y^) for binary classification
+2. Cross entropy loss: -log(p) p is the prpbability
+3. hinge loss: SVM's hinge loss max(0, 1- y*y^)
+   - there are many variations of hinge loss given a problem:
+       - contrastive loss: given a pair (x1,x2) and label y indicating if x1 an x2 are relevant or not. constructive loss which is y*dist(x1,x2)+(1-y)*max(0,m-dist(x1,x2)). here m is the margin which is the max contribution to the loss when model makes mistake of learning distance between irrlevant item x1 and x2 to 0 i.e. very relevant. 
+       - In other cases when relevant are detected as relevant (zero distance) and irrelevant are detected as irrelevant (large distance higher than m) the contribution of those instance to the loss function is 0.
+       
+4. Triplet loss: Triplet loss is another version of contrastive loss that works on a tuple of (x1,x2,x2) where x2 is relevant to x1 and x3 is irrelevant to x1.
+   - loss = max(0, m+dist(x1,x2)-dist(x1,x3))
+   - Easy case: dist(x1,x3) > m+dist(x1,x2) makes that training instance to contribute zero in the loss
+   - Hard case: dist(x1,x3) < dist(x1,x2), this makes that training instance to contribute > m in the loss
+   - Semi hard: m < dist(x1,x3) > dist(x1,x2) this makes that training instance to contribute < m in the loss
+   - getting training instance of this format is hard
+   - An important decision of a training with Triplet Ranking Loss is negatives selection or triplet mining. 
+       - First strategies used offline triplet mining, which means that triplets are defined at the beginning of the training,
+       - online triplet mining, meaning that triplets are defined for every batch during the training
 RNN
 LSTM GRU
 Gradient explosion
