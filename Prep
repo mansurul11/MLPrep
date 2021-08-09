@@ -280,4 +280,19 @@ Recommender system:
 
 AB Test:
 1. unpaired t test.
+Mistakes not to make at AB Test:
+1. Having many variations if bad idea as it will show down the test and can also impose risk on invalidating outcomes.
+  - many variations mean longer running time and more resources.
+  - longer running test have the risk for cookie deletion i.e sample polution. In that longer running time, people will have deleted their cookies and may enter a different variation than the one they were originally in.
+  - too many variations increase the number of false positives.
+  - this equation 1- (1-a)^m here (a is the significance level and m is the number of variations run) measure the amount of false positive possible for many variations. This is known as multiple comparison problem.
+  - Bonferroni correction is the way to handle this, as per this each test should have significance level a/m.
+2. changing test status i.e. assignment of traffic in mid test.
+  - this will skew the sample assignment.
+  - only new visitor after the time of the change will get impacted. Previous visitor will still follow old traffic assginment rule unless they delete their cookie.
+3. segment wise post analysis of data should be done carefully.
+   - even though the overall test has reached to enough visitor but sample size may still be not enough at segment level.
+   - Also comparing different segments can raise multiple comparison problem.
+   - its better to run targetted test on each segment than post split.
+   - if thats not possible, make sure the data is segmented properly and have enough samples.
 
