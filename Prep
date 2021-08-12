@@ -296,3 +296,7 @@ Mistakes not to make at AB Test:
    - its better to run targetted test on each segment than post split.
    - if thats not possible, make sure the data is segmented properly and have enough samples.
 
+Human Annotation:
+1. Inter-rater agreement reliability measures the extent to which independent raters assess a task and produce the same answer. 
+One of the most widely used statistics to compute agreement is Cohen’s kappa (k), a chance-adjust measure of agreement between two raters. 
+A generalization for n raters is Fleiss’ kappa
