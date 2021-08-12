@@ -256,6 +256,12 @@ Transformer:
 5. once there is a key to the query, outout associated to the hidden unit to provided.
 6. Transformer allow to have multiple attention head 
 7. this attention is called dot-product attention as final z = softmax(queryDOTkey)value
+8. the decoder input will be shifted to the right by one position. One reason is that we do not want our model to learn how to copy our decoder input during 
+training, but we want to learn that given the encoder sequence and a particular decoder sequence, which has been already seen by the model, 
+we predict the next word/character.
+9. If we don’t shift the decoder sequence, the model learns to simply ‘copy’ the decoder input, since the target word/character 
+for position i would be the word/character i in the decoder input. Thus, by shifting the decoder input by one position, 
+our model needs to predict the target word/character for position i having only seen the word/characters  1, …, i-1 in the decoder sequence
 
 BERT:
 1. Bidirectional encoder trasnformer model.
@@ -300,3 +306,5 @@ Human Annotation:
 1. Inter-rater agreement reliability measures the extent to which independent raters assess a task and produce the same answer. 
 One of the most widely used statistics to compute agreement is Cohen’s kappa (k), a chance-adjust measure of agreement between two raters. 
 A generalization for n raters is Fleiss’ kappa
+2. Another common strategy to ensure high-quality work is to include predefined gold standard data in the data set at random, so we can test how workers perform. This technique is known as “honey pots”, 
+“gold data”, or “verifiable answers”.
